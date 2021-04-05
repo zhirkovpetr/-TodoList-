@@ -1,0 +1,33 @@
+.App {
+  padding: 30px;
+  display: flex;
+}
+
+.App > div {
+  margin-right: 50px;
+}
+
+.removeButton{
+  background-color: red;
+}
+.active-filter {
+  background-color: aquamarine;
+}
+
+.error {
+  border: red 2px solid;
+  outline: transparent;
+}
+
+.error-message {
+  color: red;
+}
+
+
+
+.is-done {
+  opacity: 0.5;
+}
+
+
+
