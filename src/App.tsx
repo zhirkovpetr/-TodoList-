@@ -45,20 +45,7 @@ function App() {
         ],
     })
 
-    function removeTodoList(todoListId: string) {
-        const updatedTodoList = todoLists.filter(tl => tl.id !== todoListId)
-        setTodoLists(updatedTodoList);
-        delete tasks[todoListId]   //удалил таски из массива, тк без этой функции они удаляются только из ui
-    }
 
-    function addTodoList(title: string) {
-        const newTodoListID = v1()
-        const newTodoList: TodoListType = {
-            id: newTodoListID, title, filter: "all"
-        }
-        setTodoLists([...todoLists, newTodoList])
-        setTasks({...tasks, [newTodoListID]: []})
-    }
 
     function removeTask(taskID: string, todoListId: string) {
         const updatedTasks = tasks[todoListId].filter(t => t.id !== taskID)
@@ -67,7 +54,6 @@ function App() {
             [todoListId]: updatedTasks
         })
     }
-
     function addTask(title: string, todoListId: string) {
         const newTask = {
             id: v1(),
@@ -80,7 +66,6 @@ function App() {
             [todoListId]: updatedTasks
         })
     }
-
     function changeTaskStatus(taskID: string, newIsDoneValue: boolean, todoListId: string) {
         const updatedTasks = tasks[todoListId].map(t => t.id === taskID ? {...t, isDone: newIsDoneValue} : t)
         setTasks({
@@ -88,7 +73,6 @@ function App() {
             [todoListId]: updatedTasks
         })
     }
-
     function changeTaskTitle(taskID: string, title: string, todoListId: string) {
         const updatedTasks = tasks[todoListId].map(t => t.id === taskID ? {...t, title} : t)
         setTasks({
@@ -102,23 +86,35 @@ function App() {
         const updatedTodoLists = todoLists.map(tl => tl.id === todoListID ? {...tl, title} : tl)
         setTodoLists(updatedTodoLists)
     }
-
     function changeTodoListFilter(newFilterValue: FilterValuesType, todoListId: string) {
         const updatedTodoList = todoLists.map(tl => tl.id === todoListId ? {...tl, filter: newFilterValue} : tl)
         setTodoLists(updatedTodoList)
     }
+    function removeTodoList(todoListId: string) {
+        const updatedTodoList = todoLists.filter(tl => tl.id !== todoListId)
+        setTodoLists(updatedTodoList);
+        delete tasks[todoListId]   //удалил таски из массива, тк без этой функции они удаляются только из ui
+    }
+    function addTodoList(title: string) {
+        const newTodoListID = v1()
+        const newTodoList: TodoListType = {
+            id: newTodoListID, title, filter: "all"
+        }
+        setTodoLists([...todoLists, newTodoList])
+        setTasks({...tasks, [newTodoListID]: []})
+    }
+
 
     function getTasksForTodoList(todoList: TodoListType): Array<TaskType> /*типизируем что мы вернем*/ {
         switch (todoList.filter) {
             case "active":
-                return tasks[todoList.id].filter(t => t.isDone === false)
+                return tasks[todoList.id].filter(t => !t.isDone)
             case "completed":
-                return tasks[todoList.id].filter(t => t.isDone === true)
+                return tasks[todoList.id].filter(t => t.isDone)
             default:
                 return tasks[todoList.id]
         }
     }
-
     const todoListComponents = todoLists.map((tl) => {
         return (
             <Grid item={true} key={tl.id}>
@@ -135,7 +131,6 @@ function App() {
                     removeTodoList={removeTodoList}
                     changeTodoListTitle={changeTodoListTitle}
                     changeTaskTitle={changeTaskTitle}
-
                 />
             </Paper>
             </Grid>)
