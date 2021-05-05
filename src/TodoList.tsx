@@ -21,6 +21,9 @@ type TodoListPropsType = {
 }
 
 function TodoList(props: TodoListPropsType) {
+    /*let todolist= useSelector<AppRootStateType, TodoListType>(state=> state.todolists.filter(el=> el===props.id)[0])
+    let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks)
+    let dispatch = useDispatch()*/
 
     const tasks = props.tasks.map(t => {
         const removeTask = () => props.removeTask(t.id, props.Id)

@@ -28,16 +28,19 @@ type ChangeTaskTitleAT = {
     id: string
 }
 
+const initialState: TasksStateType = {}
 
-export type ActionsType = removeTaskAT | AddTaskAT | ChangeTaskStatusAT  |
+export type ActionsType = removeTaskAT | AddTaskAT | ChangeTaskStatusAT |
     ChangeTaskTitleAT | addTodoListAT | removeTodoListAT
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
+export const tasksReducer = (state = initialState, action: ActionsType): TasksStateType => {
+
     switch (action.type) {
         case "REMOVE-TASK":
-            let copyState= {...state}
-            copyState[action.todolistId]= copyState[action.todolistId].filter(t => t.id !== action.taskId)
-           return copyState
+            let copyState = {...state}
+            copyState[action.todolistId] = copyState[action.todolistId].filter(t => t.id !== action.taskId)
+
+            return copyState
         case "ADD-TASK": {
             const newTask = {
                 id: v1(),
@@ -51,7 +54,10 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
             }
         }
         case 'CHANGE-TASK-STATUS':
-            const updatedTasksStatus = state[action.todolistId].map(t => t.id === action.id ? {...t, isDone: action.isDone} : t)
+            const updatedTasksStatus = state[action.todolistId].map(t => t.id === action.id ? {
+                ...t,
+                isDone: action.isDone
+            } : t)
             return {
                 ...state,
                 [action.todolistId]: updatedTasksStatus
@@ -64,10 +70,10 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
             }
         }
         case 'ADD-TODOLIST': {
-            return {...state, [action.id]:[]}
+            return {...state, [action.id]: []}
         }
         case 'REMOVE-TODOLIST': {
-            let copyState={...state}
+            let copyState = {...state}
             delete copyState[action.todoListId]
             return copyState
         }
