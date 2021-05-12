@@ -7,7 +7,8 @@ type AddItemFormPropsType = {
     label: string
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
+export const AddItemForm= React.memo((props: AddItemFormPropsType)=> {
+    console.log('add item form')
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<string | null>(null)
    /* const errorMessage = error ? <div className={'error-message'}> {error} </div> : null*/
@@ -16,6 +17,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
         setTitle(e.currentTarget.value)
     }
     const onKeyPressAddItem = (e: KeyboardEvent<HTMLInputElement>) => {
+        error && setError(null);
         if (e.key === 'Enter') {
             addItem()
         }
@@ -48,4 +50,4 @@ export function AddItemForm(props: AddItemFormPropsType) {
         </div>
 
     )
-}
+})
