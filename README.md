@@ -1,1 +1,1 @@
-TodoList: https://zhirkovpetr.github.io/TodoList
+Todo list: https://zhirkovpetr.github.io/TodoList

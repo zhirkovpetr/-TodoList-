@@ -5,29 +5,29 @@ import {Delete} from "@material-ui/icons";
 import {TaskType} from "../App";
 
 
-type TaskPropsType = {
+export type TaskPropsType = {
     task: TaskType
-    changeTaskStatus: (id: string, newIsDoneValue: boolean)=> void
-    removeTask: (id: string)=> void
-    changeTaskTitle: (id: string, newValue: string)=> void
-
+    changeTaskStatus: (id: string, newIsDoneValue: boolean) => void
+    removeTask: (id: string) => void
+    changeTaskTitle: (id: string, newValue: string) => void
+    todolistId: string
 }
 
-const Task= React.memo(({
-                            task,
-                            changeTaskStatus,
-                            changeTaskTitle,
-                            removeTask
-                        }: TaskPropsType)=>{
+const Task = React.memo(({
+                             task,
+                             changeTaskStatus,
+                             changeTaskTitle,
+                             removeTask
+                         }: TaskPropsType) => {
     console.log('Task')
 
     const onClickHandler = () => removeTask(task.id)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue= e.currentTarget.checked;
+        let newIsDoneValue = e.currentTarget.checked;
         changeTaskStatus(task.id, newIsDoneValue)
     }
-    const onTitleChangeHandler =(newValue: string) => changeTaskTitle(task.id, newValue)
+    const onTitleChangeHandler = (newValue: string) => changeTaskTitle(task.id, newValue)
 
     return (
         <div key={task.id} className={task.isDone ? 'is-done' : ''}>
