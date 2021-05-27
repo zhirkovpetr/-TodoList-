@@ -8,28 +8,19 @@
   margin-right: 50px;
 }
 
-.removeButton{
-  background-color: red;
-}
-.active-filter {
-  background-color: aquamarine;
-}
-
 .error {
-  border: red 2px solid;
-  outline: transparent;
+  border: red 1px solid;
 }
 
 .error-message {
   color: red;
 }
-*/
 
-
+.active-filter {
+  background-color: aquamarine;
+}
 
 .is-done {
   opacity: 0.5;
 }
-
-
-
+*/
